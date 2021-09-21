@@ -1,0 +1,47 @@
+/* Default toolbar height */
+$toolbar_height: 64px;
+
+/* Height that the chart takes up for smaller screens */
+$chart_height_mobile: 40%;
+/* Self explanatory */
+$table_height_mobile: calc(100% - $chart_height_mobile);
+
+/* CONTAINERS */
+.container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - #{$toolbar_height});
+    overflow: auto;
+}
+
+.chart-container {
+    max-height: $chart_height_mobile;
+}
+
+.table-container {
+    width: 100%;
+    overflow: auto;
+    max-height: $table_height_mobile;
+
+    table {
+        width: 100%;
+    }
+}
+
+/* Intended for small screens (phones) */
+@media only screen and (min-width: 800px) {
+
+    .container {
+        flex-direction: row;
+    }
+
+    .chart-container {
+        max-height: 97%;
+        width: 50%;
+    }
+
+    .table-container {
+        width: 50%;
+        max-height: 100%;
+    }
+}

@@ -1,0 +1,62 @@
+<mat-toolbar color="primary">
+  <span class="title" [routerLink]="['']">Milestone 1</span>
+  <div class="separator"></div>
+
+  <!-- Desktop button view -->
+  <button mat-icon-button [routerLink]="['temperature']" fxHide fxShow.gt-sm>
+    <mat-icon>thermostat</mat-icon>
+  </button>
+  <button mat-icon-button [routerLink]="['humidity']" fxHide fxShow.gt-sm>
+    <mat-icon>water_drop</mat-icon>
+  </button>
+  <button mat-icon-button [routerLink]="['distance']" fxHide fxShow.gt-sm>
+    <mat-icon>straighten</mat-icon>
+  </button>
+  <button mat-icon-button matBadge="{{led ? 'On' : 'Off'}}" matBadgeOverlap="true" (click)="changeLEDState()" fxHide fxShow.gt-sm>
+    <mat-icon>wb_sunny</mat-icon>
+  </button>
+  <div class="spacer"></div>
+  <a [disableRipple]="true" mat-button fxHide fxShow.gt-sm>
+    <mat-icon>autorenew</mat-icon>
+    <span> {{update_rate / 1000}}s</span>
+  </a>
+  <a mat-button href="mailto:{{email}}" fxHide fxShow.gt-sm>
+    <mat-icon>group</mat-icon>
+    <span> {{group}}</span>
+  </a>
+
+
+  <!-- Mobile button view -->
+  <div class="spacer" fxShow fxHide.gt-sm></div>
+  <button mat-icon-button matBadge="{{led ? 'On' : 'Off'}}" matBadgeOverlap="true" (click)="changeLEDState()" fxShow fxHide.gt-sm>
+    <mat-icon>wb_sunny</mat-icon>
+  </button>
+  <button mat-button [matMenuTriggerFor]="menu" fxShow fxHide.gt-sm>
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [routerLink]="['temperature']">
+      <mat-icon>thermostat</mat-icon>
+      <span>Temperature</span>
+    </button>
+    <button mat-menu-item [routerLink]="['humidity']">
+      <mat-icon>water_drop</mat-icon>
+      <span>Humidity</span>
+    </button>
+    <button mat-menu-item [routerLink]="['distance']">
+      <mat-icon>straighten</mat-icon>
+      <span>Distance</span>
+    </button>
+    <mat-divider></mat-divider>
+    <a mat-menu-item>
+      <mat-icon>autorenew</mat-icon>
+      <span> {{update_rate / 1000}}s</span>
+    </a>
+    <a mat-menu-item href="mailto:{{email}}">
+      <mat-icon>group</mat-icon>
+      <span>{{group}}</span>
+    </a>
+  </mat-menu>
+
+</mat-toolbar>
+<router-outlet></router-outlet>

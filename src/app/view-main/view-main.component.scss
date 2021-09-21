@@ -1,0 +1,22 @@
+.container {
+    height: 90%;
+}
+
+.container-info {
+    flex: 0 1 auto;
+    text-align: center;
+    padding: 1rem;
+}
+
+.container-image {
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.container-image img {
+    height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}

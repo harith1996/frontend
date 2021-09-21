@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp");
+
+.spacer {
+  flex: 1;
+}
+
+.separator {
+  height: 100%;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.title {
+  margin-left: 15px;
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  cursor: pointer;
+}
