@@ -73,7 +73,7 @@ export class DataService {
    * @returns an Observable to the /api/led/{0,1} route.
    */
   public setLED(s: number): Observable<any> {
-    return this._http.get(this.API_SET_LED(s), { responseType: 'text' });
+    return this._http.put(this.API_SET_LED(s), { responseType: 'text' });
   }
 
   /**
