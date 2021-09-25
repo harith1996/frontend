@@ -18,6 +18,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDividerModule } from '@angular/material/divider';
+import { MqttModule } from "ngx-mqtt";
+
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,12 @@ import { MatDividerModule } from '@angular/material/divider';
     MatSortModule,
     MatDividerModule,
     HttpClientModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    // MQTT
+    MqttModule.forRoot({
+      hostname: environment.mqtt_host,
+      port: environment.mqtt_port
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

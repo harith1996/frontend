@@ -1,6 +1,8 @@
 export const environment = {
   production: true,
   rest_proto: "http",
-  ws_proto: "ws",
-  api_url: `://${window.location.hostname}:${window.location.port}/api/`
+  // Set the URL for the API.
+  api_url: `://${window.location.hostname}:${window.location.port}/api/`,
+  mqtt_host: "broker",
+  mqtt_port: 8883
 };

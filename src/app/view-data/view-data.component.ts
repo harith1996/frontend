@@ -4,6 +4,7 @@ import { DataService } from '../data.service';
 import { ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
+import { IMqttMessage, MqttService } from 'ngx-mqtt';
 
 export class DefaultChartValues {
   legend: boolean = false;
@@ -42,9 +43,9 @@ export class TemperatureView implements OnInit, AfterViewInit, OnDestroy {
   chartValues: DefaultChartValues = new DefaultChartValues();
   
   // (Shared) Subscription to the WebSocket
-  wsSubscription: Subscription;
+  mqttSubscription: Subscription;
 
-  constructor(private _dataService: DataService) {
+  constructor(private _dataService: DataService, private _mqttService: MqttService) {
     // Modify the default chart settings to fit our needs
     this.chartValues.xAxisLabel = 'Time';
     this.chartValues.yAxisLabel = 'Temperature';
@@ -55,20 +56,16 @@ export class TemperatureView implements OnInit, AfterViewInit, OnDestroy {
     // Populate the table with historical data
     this.fetchInitialData();
     // Change data if message contains info about the temperature
-    this.wsSubscription = this._dataService.getWebSocket().subscribe((msg) => {
-      let data = JSON.parse(msg.data)
-      
-      if (data.type == 'temperature') {
+    this.mqttSubscription = this._mqttService.observe('temperature').subscribe((message: IMqttMessage) => {
+        let data = JSON.parse(message.payload.toString())
         this.data[0]['series'].push({
-          "name": new Date(data.payload.time),
-          "value": data.payload.temperature
+          "name": new Date(data.time),
+          "value": data.temperature
         })
         // Doing this will trigger an update in the UI
         // it's not pretty but will do for now
         this.data = [...this.data]
         this.dataSource.data = this.data[0]['series']
-      }
-
     }, (err) => {
       console.error("Could not subscribe to websocket :(")
       console.log(err)
@@ -80,7 +77,7 @@ export class TemperatureView implements OnInit, AfterViewInit, OnDestroy {
   }
   
   ngOnDestroy(): void {
-    this.wsSubscription.unsubscribe()
+    this.mqttSubscription.unsubscribe()
   }
 
   fetchInitialData(): void {
@@ -119,9 +116,9 @@ export class HumidityView implements OnInit, AfterViewInit, OnDestroy {
   dataSource = new MatTableDataSource<any>();
   chartValues: DefaultChartValues = new DefaultChartValues();
 
-  wsSubscription: Subscription;
+  mqttSubscription: Subscription;
 
-  constructor(private _dataService: DataService) {
+  constructor(private _dataService: DataService, private _mqttService: MqttService) {
     // Modify the default chart settings to fit our needs
     this.chartValues.xAxisLabel = 'Time';
     this.chartValues.yAxisLabel = 'Humidity';
@@ -132,20 +129,16 @@ export class HumidityView implements OnInit, AfterViewInit, OnDestroy {
     // Populate the table with historical data
     this.fetchInitialData();
     // Change data if message contains info about the humidity
-    this.wsSubscription = this._dataService.getWebSocket().subscribe((msg) => {
-      let data = JSON.parse(msg.data)
-      
-      if (data.type == 'humidity') {
+    this.mqttSubscription = this._mqttService.observe('humidity').subscribe((message: IMqttMessage) => {
+        let data = JSON.parse(message.payload.toString())
         this.data[0]['series'].push({
-          "name": new Date(data.payload.time),
-          "value": data.payload.humidity
+          "name": new Date(data.time),
+          "value": data.humidity
         })
         // Doing this will trigger an update in the UI
         // it's not pretty but will do for now
         this.data = [...this.data]
         this.dataSource.data = this.data[0]['series']
-      }
-
     }, (err) => {
       console.error("Could not subscribe to websocket :(")
       console.log(err)
@@ -157,7 +150,7 @@ export class HumidityView implements OnInit, AfterViewInit, OnDestroy {
   }
   
   ngOnDestroy(): void {
-    this.wsSubscription.unsubscribe()
+    this.mqttSubscription.unsubscribe()
   }
 
   fetchInitialData(): void {
@@ -195,9 +188,9 @@ export class DistanceView implements OnInit, AfterViewInit, OnDestroy {
   dataSource = new MatTableDataSource<any>();
   chartValues: DefaultChartValues = new DefaultChartValues();
 
-  wsSubscription: Subscription;
+  mqttSubscription: Subscription;
 
-  constructor(private _dataService: DataService) {
+  constructor(private _dataService: DataService, private _mqttService: MqttService) {
     // Modify the default chart settings to fit our needs
     this.chartValues.xAxisLabel = 'Time';
     this.chartValues.yAxisLabel = 'Centimeters';
@@ -208,21 +201,16 @@ export class DistanceView implements OnInit, AfterViewInit, OnDestroy {
     // Populate the table with historical data
     this.fetchInitialData();
     // Change data if message contains info about the ultrasonic sensor
-    this.wsSubscription = this._dataService.getWebSocket().subscribe((msg) => {
-      let data = JSON.parse(msg.data)
-      
-      if (data.type == 'distance') {
+    this.mqttSubscription = this._mqttService.observe('distance').subscribe((message: IMqttMessage) => {
+        let data = JSON.parse(message.payload.toString())
         this.data[0]['series'].push({
-          "name": new Date(data.payload.time),
-          "value": data.payload.distance
+          "name": new Date(data.time),
+          "value": data.distance
         })
-        
         // Doing this will trigger an update in the UI
         // it's not pretty but will do for now
         this.data = [...this.data]
         this.dataSource.data = this.data[0]['series']
-      }
-
     }, (err) => {
       console.error("Could not subscribe to websocket :(")
       console.log(err)
@@ -234,7 +222,7 @@ export class DistanceView implements OnInit, AfterViewInit, OnDestroy {
   }
   
   ngOnDestroy(): void {
-    this.wsSubscription.unsubscribe();
+    this.mqttSubscription.unsubscribe();
   }
 
   fetchInitialData(): void {

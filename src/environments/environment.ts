@@ -5,9 +5,10 @@
 export const environment = {
   production: false,
   rest_proto: "http",
-  ws_proto: "ws",
   // Set the URL for the API.
-  api_url: "://localhost:8080/api/"
+  api_url: "://localhost:8080/api/",
+  mqtt_host: "localhost",
+  mqtt_port: 8883
 };
 
 /*
