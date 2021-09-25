@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatButtonModule } from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ViewMainComponent } from './view-main/view-main.component';
@@ -43,7 +44,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatSortModule,
     MatDividerModule,
     HttpClientModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

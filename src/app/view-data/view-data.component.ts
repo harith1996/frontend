@@ -33,6 +33,8 @@ export class TemperatureView implements OnInit, AfterViewInit, OnDestroy {
   // Array containing the columns that will be displayed in <mat-table>
   displayedColumns: string[] = ['name', 'value'];
   data: any[] = [{"name": "ºC","series": []}];
+  current: Number = -1
+  unit: string = 'ºC'
 
   // Reference to matSort from <mat-table>
   @ViewChild(MatSort) sort: MatSort;
@@ -57,7 +59,6 @@ export class TemperatureView implements OnInit, AfterViewInit, OnDestroy {
     // Change data if message contains info about the temperature
     this.wsSubscription = this._dataService.getWebSocket().subscribe((msg) => {
       let data = JSON.parse(msg.data)
-      
       if (data.type == 'temperature') {
         this.data[0]['series'].push({
           "name": new Date(data.payload.time),
@@ -67,6 +68,7 @@ export class TemperatureView implements OnInit, AfterViewInit, OnDestroy {
         // it's not pretty but will do for now
         this.data = [...this.data]
         this.dataSource.data = this.data[0]['series']
+        this.current = data.payload.temperature;
       }
 
     }, (err) => {
@@ -97,6 +99,7 @@ export class TemperatureView implements OnInit, AfterViewInit, OnDestroy {
       // it's not pretty but will do for now
       this.data = [...this.data]
       this.dataSource.data = this.data[0]['series']
+      this.current = Number((this.data[0]['series'].at(-1) || {}).value)
     })
   }
 }
@@ -114,7 +117,8 @@ export class HumidityView implements OnInit, AfterViewInit, OnDestroy {
   
   displayedColumns: string[] = ['name', 'value'];
   data: any[] = [{"name": "%","series": []}];
-
+  current: Number = -1
+  unit: string = "%"
   @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource<any>();
   chartValues: DefaultChartValues = new DefaultChartValues();
@@ -134,7 +138,6 @@ export class HumidityView implements OnInit, AfterViewInit, OnDestroy {
     // Change data if message contains info about the humidity
     this.wsSubscription = this._dataService.getWebSocket().subscribe((msg) => {
       let data = JSON.parse(msg.data)
-      
       if (data.type == 'humidity') {
         this.data[0]['series'].push({
           "name": new Date(data.payload.time),
@@ -144,6 +147,7 @@ export class HumidityView implements OnInit, AfterViewInit, OnDestroy {
         // it's not pretty but will do for now
         this.data = [...this.data]
         this.dataSource.data = this.data[0]['series']
+        this.current = data.payload.humidity;
       }
 
     }, (err) => {
@@ -174,6 +178,7 @@ export class HumidityView implements OnInit, AfterViewInit, OnDestroy {
       // it's not pretty but will do for now
       this.data = [...this.data]
       this.dataSource.data = this.data[0]['series']
+      this.current = Number((this.data[0]['series'].at(-1) || {}).value)
     })
   }
 }
@@ -190,7 +195,8 @@ export class DistanceView implements OnInit, AfterViewInit, OnDestroy {
 
   displayedColumns: string[] = ['name', 'value'];
   data: any[] = [{"name": "cm","series": []}];
-
+  current: number = -1
+  unit: string = 'cm'
   @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource<any>();
   chartValues: DefaultChartValues = new DefaultChartValues();
@@ -210,7 +216,6 @@ export class DistanceView implements OnInit, AfterViewInit, OnDestroy {
     // Change data if message contains info about the ultrasonic sensor
     this.wsSubscription = this._dataService.getWebSocket().subscribe((msg) => {
       let data = JSON.parse(msg.data)
-      
       if (data.type == 'distance') {
         this.data[0]['series'].push({
           "name": new Date(data.payload.time),
@@ -221,6 +226,7 @@ export class DistanceView implements OnInit, AfterViewInit, OnDestroy {
         // it's not pretty but will do for now
         this.data = [...this.data]
         this.dataSource.data = this.data[0]['series']
+        this.current = data.payload.distance
       }
 
     }, (err) => {
@@ -251,6 +257,7 @@ export class DistanceView implements OnInit, AfterViewInit, OnDestroy {
       // it's not pretty but will do for now
       this.data = [...this.data]
       this.dataSource.data = this.data[0]['series']
+      this.current = Number((this.data[0]['series'].at(-1) || {}).value)
     })
   }
 }
