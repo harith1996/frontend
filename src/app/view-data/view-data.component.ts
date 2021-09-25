@@ -34,6 +34,8 @@ export class TemperatureView implements OnInit, AfterViewInit, OnDestroy {
   // Array containing the columns that will be displayed in <mat-table>
   displayedColumns: string[] = ['name', 'value'];
   data: any[] = [{"name": "ºC","series": []}];
+  current: Number = -1
+  unit: string = 'ºC'
 
   // Reference to matSort from <mat-table>
   @ViewChild(MatSort) sort: MatSort;
@@ -66,6 +68,7 @@ export class TemperatureView implements OnInit, AfterViewInit, OnDestroy {
         // it's not pretty but will do for now
         this.data = [...this.data]
         this.dataSource.data = this.data[0]['series']
+        this.current = data.temperature;
     }, (err) => {
       console.error("Could not subscribe to websocket :(")
       console.log(err)
@@ -94,6 +97,7 @@ export class TemperatureView implements OnInit, AfterViewInit, OnDestroy {
       // it's not pretty but will do for now
       this.data = [...this.data]
       this.dataSource.data = this.data[0]['series']
+      this.current = data[0].temperature
     })
   }
 }
@@ -111,7 +115,8 @@ export class HumidityView implements OnInit, AfterViewInit, OnDestroy {
   
   displayedColumns: string[] = ['name', 'value'];
   data: any[] = [{"name": "%","series": []}];
-
+  current: Number = -1
+  unit: string = "%"
   @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource<any>();
   chartValues: DefaultChartValues = new DefaultChartValues();
@@ -139,6 +144,7 @@ export class HumidityView implements OnInit, AfterViewInit, OnDestroy {
         // it's not pretty but will do for now
         this.data = [...this.data]
         this.dataSource.data = this.data[0]['series']
+        this.current = data.humidity;
     }, (err) => {
       console.error("Could not subscribe to websocket :(")
       console.log(err)
@@ -167,6 +173,7 @@ export class HumidityView implements OnInit, AfterViewInit, OnDestroy {
       // it's not pretty but will do for now
       this.data = [...this.data]
       this.dataSource.data = this.data[0]['series']
+      this.current = data[0].humidity
     })
   }
 }
@@ -183,7 +190,8 @@ export class DistanceView implements OnInit, AfterViewInit, OnDestroy {
 
   displayedColumns: string[] = ['name', 'value'];
   data: any[] = [{"name": "cm","series": []}];
-
+  current: number = -1
+  unit: string = 'cm'
   @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource<any>();
   chartValues: DefaultChartValues = new DefaultChartValues();
@@ -211,6 +219,7 @@ export class DistanceView implements OnInit, AfterViewInit, OnDestroy {
         // it's not pretty but will do for now
         this.data = [...this.data]
         this.dataSource.data = this.data[0]['series']
+        this.current = data.distance
     }, (err) => {
       console.error("Could not subscribe to websocket :(")
       console.log(err)
@@ -239,6 +248,7 @@ export class DistanceView implements OnInit, AfterViewInit, OnDestroy {
       // it's not pretty but will do for now
       this.data = [...this.data]
       this.dataSource.data = this.data[0]['series']
+      this.current = data[0].distance
     })
   }
 }

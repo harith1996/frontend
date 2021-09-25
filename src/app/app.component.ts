@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
 
     // Get LEDs initial state
     this._dataService.getLED(0).subscribe((data: any) => {
-      this.led_1 = data[0].state;
+      this.led_1 = data[0]?.state;
     }, (err) => {
       console.error("An error ocurred while fecthing the LED state :(")
       console.error(err)
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
 
     // Get LEDs initial state
     this._dataService.getLED(1).subscribe((data: any) => {
-      this.led_2 = data[0].state;
+      this.led_2 = data[0]?.state;
     }, (err) => {
       console.error("An error ocurred while fecthing the LED state :(")
       console.error(err)
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
 
     // Get LEDs initial state
     this._dataService.getLED(2).subscribe((data: any) => {
-      this.led_3 = data[0].state;
+      this.led_3 = data[0]?.state;
     }, (err) => {
       console.error("An error ocurred while fecthing the LED state :(")
       console.error(err)
