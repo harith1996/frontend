@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="chart-container">
-        <!-- Chart -->
+  <div class="chart-container">
+    <!-- Chart -->
         <ngx-charts-line-chart
         [scheme]="chartValues.colorScheme"
         [legend]="chartValues.legend"
@@ -12,30 +12,32 @@
         [yAxisLabel]="chartValues.yAxisLabel"
         [timeline]="chartValues.timeline"
         [results]="data">
-        </ngx-charts-line-chart>
-    </div>
+    </ngx-charts-line-chart>
+  </div>
+  <div class="values-container">
+    <mat-card id="current-value">
+      <mat-card-title> Current Value : {{[current,unit].join(' ')}} </mat-card-title>
+    </mat-card>
+    <!-- Table -->
     <div class="table-container">
-      <mat-card id="current-value">
-        <mat-card-title> Current Value : {{[current,unit].join(' ')}} </mat-card-title>
-      </mat-card>
-        <!-- Table -->
-        <table mat-table [dataSource]="dataSource" matSortActive="name" matSortDirection="desc" matSort>
-        
-            <!-- Position Column -->
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
-              <td mat-cell *matCellDef="let element"> {{element.name.toLocaleString()}} </td>
-            </ng-container>
-          
-            <!-- Name Column -->
-            <ng-container matColumnDef="value">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>
-              <td mat-cell *matCellDef="let element"> {{[element.value, unit].join(' ')}} </td>
-            </ng-container>
-          
-            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            
-        </table>      
+      <table mat-table [dataSource]="dataSource" matSortActive="name" matSortDirection="desc" matSort>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
+          <td mat-cell *matCellDef="let element"> {{element.name.toLocaleString()}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="value">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>
+          <td mat-cell *matCellDef="let element"> {{[element.value, unit].join(' ')}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
     </div>
+  </div>
 </div>
