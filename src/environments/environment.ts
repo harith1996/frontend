@@ -8,7 +8,7 @@ export const environment = {
   // Set the URL for the API.
   api_url: "://localhost:8080/api/",
   mqtt_host: "localhost",
-  mqtt_port: 8883
+  mqtt_port: 8080
 };
 
 /*
