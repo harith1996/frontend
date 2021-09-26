@@ -12,7 +12,6 @@ export class AppComponent implements OnInit {
   
   group = "Foxtrot"
   email = "202102074@post.au.dk,202102084@post.au.dk"
-  update_rate: number = -1;
   
   led_1: number = -1;
   led_2: number = -1;
@@ -48,15 +47,6 @@ export class AppComponent implements OnInit {
       this.led_3 = data[0]?.state;
     }, (err) => {
       console.error("An error ocurred while fecthing the LED state :(")
-      console.error(err)
-    })
-    
-    // Get relevant info from server
-    // (in this case we get update rate)
-    this._dataService.getInfo().subscribe((data: any) => {
-      this.update_rate = data.update_rate;
-    }, (err) => {
-      console.error("An error ocurred while fecthing the server state :(")
       console.error(err)
     })
     

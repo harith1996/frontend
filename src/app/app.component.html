@@ -22,10 +22,6 @@
     <mat-icon>{{(led_3 == 1) ? 'brightness_5' : 'brightness_4'}}</mat-icon>
   </button>
   <div class="spacer"></div>
-  <a [disableRipple]="true" mat-button fxHide fxShow.gt-sm>
-    <mat-icon>autorenew</mat-icon>
-    <span> {{update_rate / 1000}}s</span>
-  </a>
   <a mat-button href="mailto:{{email}}" fxHide fxShow.gt-sm>
     <mat-icon>group</mat-icon>
     <span> {{group}}</span>
@@ -60,10 +56,6 @@
       <span>Distance</span>
     </button>
     <mat-divider></mat-divider>
-    <a mat-menu-item>
-      <mat-icon>autorenew</mat-icon>
-      <span> {{update_rate / 1000}}s</span>
-    </a>
     <a mat-menu-item href="mailto:{{email}}">
       <mat-icon>group</mat-icon>
       <span>{{group}}</span>
