@@ -12,14 +12,14 @@
   <button mat-icon-button [routerLink]="['distance']" fxHide fxShow.gt-sm>
     <mat-icon>straighten</mat-icon>
   </button>
-  <button mat-icon-button matBadge="1" matBadgeOverlap="true" (click)="changeLED1State()" fxHide fxShow.gt-sm>
-    <mat-icon>{{(led_1 == 1) ? 'brightness_5' : 'brightness_4'}}</mat-icon>
+  <button mat-icon-button matBadge="1" matBadgeOverlap="true" (click)="changeLEDState(0)" fxHide fxShow.gt-sm>
+    <mat-icon>{{(led_states[0] == 1) ? 'brightness_5' : 'brightness_4'}}</mat-icon>
   </button>
-  <button mat-icon-button matBadge="2" matBadgeOverlap="true" (click)="changeLED2State()" fxHide fxShow.gt-sm>
-    <mat-icon>{{(led_2 == 1) ? 'brightness_5' : 'brightness_4'}}</mat-icon>
+  <button mat-icon-button matBadge="2" matBadgeOverlap="true" (click)="changeLEDState(1)" fxHide fxShow.gt-sm>
+    <mat-icon>{{(led_states[1]  == 1) ? 'brightness_5' : 'brightness_4'}}</mat-icon>
   </button>
-  <button mat-icon-button matBadge="3" matBadgeOverlap="true" (click)="changeLED3State()" fxHide fxShow.gt-sm>
-    <mat-icon>{{(led_3 == 1) ? 'brightness_5' : 'brightness_4'}}</mat-icon>
+  <button mat-icon-button matBadge="3" matBadgeOverlap="true" (click)="changeLEDState(2)" fxHide fxShow.gt-sm>
+    <mat-icon>{{(led_states[2]  == 1) ? 'brightness_5' : 'brightness_4'}}</mat-icon>
   </button>
   <div class="spacer"></div>
   <a mat-button href="mailto:{{email}}" fxHide fxShow.gt-sm>
@@ -30,14 +30,14 @@
 
   <!-- Mobile button view -->
   <div class="spacer" fxShow fxHide.gt-sm></div>
-  <button mat-icon-button matBadge="1" matBadgeOverlap="true" (click)="changeLED1State()" fxShow fxHide.gt-sm>
-    <mat-icon>{{(led_1 == 1) ? 'brightness_5' : 'brightness_4'}}</mat-icon>
+  <button mat-icon-button matBadge="1" matBadgeOverlap="true" (click)="changeLEDState(0)" fxShow fxHide.gt-sm>
+    <mat-icon>{{(led_states[0]  == 1) ? 'brightness_5' : 'brightness_4'}}</mat-icon>
   </button>
-  <button mat-icon-button matBadge="2" matBadgeOverlap="true" (click)="changeLED2State()" fxShow fxHide.gt-sm>
-    <mat-icon>{{(led_2 == 1) ? 'brightness_5' : 'brightness_4'}}</mat-icon>
+  <button mat-icon-button matBadge="2" matBadgeOverlap="true" (click)="changeLEDState(1)" fxShow fxHide.gt-sm>
+    <mat-icon>{{(led_states[1]  == 1) ? 'brightness_5' : 'brightness_4'}}</mat-icon>
   </button>
-  <button mat-icon-button matBadge="3" matBadgeOverlap="true" (click)="changeLED3State()" fxShow fxHide.gt-sm>
-    <mat-icon>{{(led_3 == 1) ? 'brightness_5' : 'brightness_4'}}</mat-icon>
+  <button mat-icon-button matBadge="3" matBadgeOverlap="true" (click)="changeLEDState(2)" fxShow fxHide.gt-sm>
+    <mat-icon>{{(led_states[2]  == 1) ? 'brightness_5' : 'brightness_4'}}</mat-icon>
   </button>
   <button mat-button [matMenuTriggerFor]="menu" fxShow fxHide.gt-sm>
     <mat-icon>more_vert</mat-icon>

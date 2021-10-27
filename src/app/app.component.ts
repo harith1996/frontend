@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { DataService } from './data.service';
 import { IMqttMessage, MqttService } from 'ngx-mqtt';
 
+const SUPPORTED_LEDS = [0,1,2];
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,9 +14,10 @@ export class AppComponent implements OnInit {
   group = "Foxtrot"
   email = "202102074@post.au.dk,202102084@post.au.dk"
   
-  led_1: number = -1;
-  led_2: number = -1;
-  led_3: number = -1;
+  led_states: number[] = SUPPORTED_LEDS.map(i => -1)
+  // led_1: number = -1;
+  // led_2: number = -1;
+  // led_3: number = -1;
   
   mqttSubscription: Subscription;
 
@@ -27,39 +29,21 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
 
     // Get LEDs initial state
-    this._dataService.getLED(0).subscribe((data: any) => {
-      this.led_1 = data[0]?.state;
-    }, (err) => {
-      console.error("An error ocurred while fecthing the LED state :(")
-      console.error(err)
-    })
-
-    // Get LEDs initial state
-    this._dataService.getLED(1).subscribe((data: any) => {
-      this.led_2 = data[0]?.state;
-    }, (err) => {
-      console.error("An error ocurred while fecthing the LED state :(")
-      console.error(err)
-    })
-
-    // Get LEDs initial state
-    this._dataService.getLED(2).subscribe((data: any) => {
-      this.led_3 = data[0]?.state;
-    }, (err) => {
-      console.error("An error ocurred while fecthing the LED state :(")
-      console.error(err)
+    SUPPORTED_LEDS.forEach((ledNumber) => {
+      this._dataService.getLED(ledNumber).subscribe((data: any) => {
+        this.led_states[ledNumber] = data[0]?.state;
+      }, (err) => {
+        console.error("An error ocurred while fecthing the LED state :(")
+        console.error(err)
+      })
     })
     
     // Subscribe to the shared Observable to update the value
     // of the LED button.
     this.mqttSubscription = this._mqttService.observe('led').subscribe((msg: IMqttMessage) => {
       let data = JSON.parse(msg.payload.toString())
-      if (data.id == 0) {
-        this.led_1 = data.state
-      } else if (data.id == 1) {
-        this.led_2 = data.state
-      } else if (data.id == 2) {
-        this.led_3 = data.state
+      if (SUPPORTED_LEDS.includes(data.id)) {
+        this.led_states[data.id] = data.state
       }
     }, (err) => {
       console.error("An error ocurred while receiving a message from the Mqtt Broker :(");
@@ -70,30 +54,17 @@ export class AppComponent implements OnInit {
 
   /**
    * Request to toggle the value of the LED.
+   * @param {number} ledNumber - ID of the LED to change 
    */
-  changeLED1State(): void {
-    var state: number = (this.led_1 == 1) ? 0 : 1;
-    console.log(`from ${this.led_1} to ${state}`)
-    this._dataService.setLED(0, state).subscribe(() => {}, (err) => {
+  changeLEDState(ledNumber: number): void {
+    if(SUPPORTED_LEDS.includes(ledNumber)){
+      var state: number = (this.led_states[ledNumber] == 1) ? 0 : 1;
+      console.log(`from ${this.led_states[ledNumber]} to ${state}`)
+      this._dataService.setLED(ledNumber, state).subscribe(() => {}, (err) => {
       console.error("An error ocurred while setting the LED state :(")
       console.error(err)
     })
-  }
-
-  changeLED2State(): void {
-    var state: number = (this.led_2 == 1) ? 0 : 1;
-    this._dataService.setLED(1, state).subscribe(() => {}, (err) => {
-      console.error("An error ocurred while setting the LED state :(")
-      console.error(err)
-    })
-  }
-
-  changeLED3State(): void {
-    var state: number = (this.led_3 == 1) ? 0 : 1;
-    this._dataService.setLED(2, state).subscribe(() => {}, (err) => {
-      console.error("An error ocurred while setting the LED state :(")
-      console.error(err)
-    })
+    }
   }
 
 }
