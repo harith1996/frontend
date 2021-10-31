@@ -1,6 +1,6 @@
-# Frontend
+# Raspberry Pi Monitor app - Frontend
 
-**[!!!] IMPORTANT**: This is just a submodule for the first milestone. The instructions to install and run the project are in the [repository for the backend](https://gitlab.au.dk/iot-foxtrot/milestone-1/backend).
+**[!!!] IMPORTANT**: This is just a submodule for the rpi-web-server. The instructions to install and run the project are in the [repository for the backend](https://github.com/harith1996/rpi-web-server).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.4.
 
